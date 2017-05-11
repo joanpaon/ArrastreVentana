@@ -72,6 +72,7 @@ public class GUI extends JFrame {
         setResizable(false);
         setSize(VENTANA_ANC, VENTANA_ALT);
         setLocationRelativeTo(null);
+        setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         setUndecorated(true);
         addKeyListener(kem);
         addMouseListener(mem);
