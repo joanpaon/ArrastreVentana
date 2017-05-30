@@ -1,5 +1,15 @@
 <pre>
 
+Version 0.1.3 - 30/05/2017
+==========================
+
+Updates
+-------
+> README.md
+> CHANGELOG.md
+> .gitignore
+---
+
 Version 0.1.2
 =============
 

@@ -28,6 +28,7 @@ public class KEM extends KeyAdapter {
     // Referencia al igu
     private final GUI gui;
 
+    // Constructor
     public KEM(GUI gui) {
         this.gui = gui;
     }
@@ -36,5 +37,4 @@ public class KEM extends KeyAdapter {
     public void keyPressed(KeyEvent e) {
         gui.gestionarPulsarTecla(e);
     }
-
 }

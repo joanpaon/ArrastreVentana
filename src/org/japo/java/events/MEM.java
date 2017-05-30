@@ -28,6 +28,7 @@ public class MEM extends MouseAdapter {
     // Referencia al igu
     private final GUI gui;
 
+    // Constructor
     public MEM(GUI gui) {
         this.gui = gui;
     }

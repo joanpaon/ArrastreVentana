@@ -28,7 +28,14 @@ public class WEM extends WindowAdapter {
     // Referencia al igu
     private final GUI gui;
 
+    // Constructor
     public WEM(GUI gui) {
         this.gui = gui;
+    }
+
+    // Cerrando Ventana
+    @Override
+    public void windowClosing(WindowEvent e) {
+        // gui.procesarCerrarVentana(e);
     }
 }

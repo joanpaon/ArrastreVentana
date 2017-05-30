@@ -28,6 +28,7 @@ public class AEM implements ActionListener {
     // Referencia al igu
     private final GUI gui;
 
+    // Constructor
     public AEM(GUI gui) {
         this.gui = gui;
     }

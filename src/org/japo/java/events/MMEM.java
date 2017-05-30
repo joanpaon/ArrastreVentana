@@ -28,6 +28,7 @@ public class MMEM extends MouseAdapter {
     // Referencia al igu
     private final GUI gui;
 
+    // Constructor
     public MMEM(GUI gui) {
         this.gui = gui;
     }
@@ -36,5 +37,4 @@ public class MMEM extends MouseAdapter {
     public void mouseDragged(MouseEvent e) {
         gui.gestionarArrastrarRaton(e);
     }
-
 }
