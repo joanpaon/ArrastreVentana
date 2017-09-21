@@ -15,15 +15,19 @@
  */
 package org.japo.java.forms;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Font;
+import java.awt.GridBagLayout;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
+import java.util.Properties;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import org.japo.java.events.KEM;
 import org.japo.java.events.MEM;
 import org.japo.java.events.MMEM;
+import org.japo.java.libraries.UtilesSwing;
 
 /**
  *
@@ -31,89 +35,90 @@ import org.japo.java.events.MMEM;
  */
 public class GUI extends JFrame {
 
-    // Tamaño de la ventana
-    public static final int VENTANA_ANC = 300;
-    public static final int VENTANA_ALT = 200;
-    
+    // Propiedades App
+    public static final String PRP_LOOK_AND_FEEL = "look_and_feel";
+    public static final String PRP_FAVICON = "favicon";
+
+    // Valores por Defecto
+    public static final String DEF_LOOK_AND_FEEL = UtilesSwing.LNF_NIMBUS;
+    public static final String DEF_FAVICON = "img/favicon.png";
+
+    // Referencias
+    private Properties prp;
+
     // Posición ventana
     private int xIni;
     private int yIni;
 
-    public GUI() {
-        // Inicialización PREVIA
-        beforeInit();
+    // Constructor
+    public GUI(Properties prp) {
+        // Inicialización Anterior
+        initBefore(prp);
 
-        // Creación del interfaz
+        // Creación Interfaz
         initComponents();
 
-        // Inicialización POSTERIOR
-        afterInit();
+        // Inicializacion Posterior
+        initAfter();
     }
 
     // Construcción del IGU
     private void initComponents() {
-        // Eventos de teclado
-        KEM kem = new KEM(this);
+        // Rótulo
+        JLabel lblRotulo = new JLabel("Arrástrame (ESC - Salir)");
+        lblRotulo.setForeground(Color.WHITE);
+        lblRotulo.setFont(new Font("Cambria", Font.PLAIN, 32));
 
-        // Eventos de ratón
-        MEM mem = new MEM(this);
-        MMEM mmem = new MMEM(this);
-        
-        // Otros componentes
-        
         // Panel Principal
         JPanel pnlPpal = new JPanel();
-        pnlPpal.setLayout(new BorderLayout());
         pnlPpal.setBackground(Color.MAGENTA);
+        pnlPpal.setLayout(new GridBagLayout());
+        pnlPpal.add(lblRotulo);
 
         // Ventana principal
-        setTitle("Ventana Centrada");
         setContentPane(pnlPpal);
+        setTitle("Swing Manual #02");
         setResizable(false);
-        setSize(VENTANA_ANC, VENTANA_ALT);
+        setSize(500, 300);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         setUndecorated(true);
-        addKeyListener(kem);
-        addMouseListener(mem);
-        addMouseMotionListener(mmem);
+        addKeyListener(new KEM(this));
+        addMouseListener(new MEM(this));
+        addMouseMotionListener(new MMEM(this));
     }
 
-    // Inicialización antes del IGU
-    private void beforeInit() {
+    // Inicialización Anterior    
+    private void initBefore(Properties prp) {
+        // Memorizar Referencia
+        this.prp = prp;
 
+        // Establecer LnF
+        UtilesSwing.establecerLnF(prp.getProperty(PRP_LOOK_AND_FEEL, DEF_LOOK_AND_FEEL));
     }
 
-    // Inicialización después del IGU
-    private void afterInit() {
-
+    // Inicialización Anterior
+    private void initAfter() {
+        // Establecer Favicon
+        UtilesSwing.establecerFavicon(this, prp.getProperty(PRP_FAVICON, DEF_FAVICON));
     }
 
-    // Cerrar programa
-    public void terminarPrograma() {
-        // Oculta la ventana
-        setVisible(false);
-
-        // Devuelve los recursos
-        dispose();
-
-        // Cierra el programa
-        System.exit(0);
-    }
-
-    public void gestionarPulsarTecla(KeyEvent e) {
+    // Gestión de la Pulsación de Teclas
+    public void gestionarTeclas(KeyEvent e) {
         if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
-            terminarPrograma();
+            terminarPrograma(this);
         }
     }
 
-    public void gestionarPulsarRaton(MouseEvent e) {
+    // Inicio de Arrastre de Ventana
+    public void iniciarArrastre(MouseEvent e) {
         // Posición inicio arrastre
         xIni = e.getXOnScreen();
         yIni = e.getYOnScreen();
     }
 
-    public void gestionarArrastrarRaton(MouseEvent e) {
+    // Arrastre de Ventana
+    public void gestionarArrastre(MouseEvent e) {
         // Coordenada X
         int xFin = e.getXOnScreen();
         int xOff = xFin - xIni;
@@ -127,8 +132,20 @@ public class GUI extends JFrame {
         // Posición de la ventana
         int xWin = getLocation().x;
         int yWin = getLocation().y;
-        
+
         // Posiciona la ventana
         setLocation(xWin + xOff, yWin + yOff);
+    }
+
+    // Cerrar programa
+    public static void terminarPrograma(JFrame frm) {
+        // Oculta la ventana
+        frm.setVisible(false);
+
+        // Devuelve los recursos
+        frm.dispose();
+
+        // Cierra el programa
+        System.exit(0);
     }
 }

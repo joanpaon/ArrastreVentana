@@ -1,4 +1,4 @@
-/*
+/* 
  * Copyright 2017 José A. Pacheco Ondoño - joanpaon@gmail.com.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -13,15 +13,34 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.japo.java.interfaces;
+package org.japo.java.events;
 
-/**
- *
- * @author José A. Pacheco Ondoño - joanpaon@gmail.com
- *
- * Ejemplo de interfaz
- */
-public interface ICapacity {
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+import org.japo.java.forms.GUI;
 
-    boolean validarNumero();
+public class DEM implements DocumentListener {
+
+    // Referencia al GUI
+    private final GUI gui;
+
+    // Constructor
+    public DEM(GUI gui) {
+        this.gui = gui;
+    }
+
+    @Override
+    public void insertUpdate(DocumentEvent e) {
+
+    }
+
+    @Override
+    public void removeUpdate(DocumentEvent e) {
+
+    }
+
+    @Override
+    public void changedUpdate(DocumentEvent e) {
+
+    }
 }

@@ -1,4 +1,4 @@
-/*
+/* 
  * Copyright 2017 José A. Pacheco Ondoño - joanpaon@gmail.com.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,17 +15,17 @@
  */
 package org.japo.java.events;
 
-import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionListener;
 import org.japo.java.forms.GUI;
 
 /**
  *
  * @author José A. Pacheco Ondoño - joanpaon@gmail.com
  */
-public class MMEM extends MouseAdapter {
+public class MMEM implements MouseMotionListener {
 
-    // Referencia al igu
+    // Referencia al GUI
     private final GUI gui;
 
     // Constructor
@@ -35,6 +35,11 @@ public class MMEM extends MouseAdapter {
 
     @Override
     public void mouseDragged(MouseEvent e) {
-        gui.gestionarArrastrarRaton(e);
+        gui.gestionarArrastre(e);
+    }
+
+    @Override
+    public void mouseMoved(MouseEvent e) {
+
     }
 }

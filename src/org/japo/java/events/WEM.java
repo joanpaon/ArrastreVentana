@@ -1,4 +1,4 @@
-/*
+/* 
  * Copyright 2017 José A. Pacheco Ondoño - joanpaon@gmail.com.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -25,7 +25,7 @@ import org.japo.java.forms.GUI;
  */
 public class WEM extends WindowAdapter {
 
-    // Referencia al igu
+    // Referencia al GUI
     private final GUI gui;
 
     // Constructor
@@ -33,9 +33,9 @@ public class WEM extends WindowAdapter {
         this.gui = gui;
     }
 
-    // Cerrando Ventana
+    // Cierre Iniciado
     @Override
     public void windowClosing(WindowEvent e) {
-        // gui.procesarCerrarVentana(e);
+
     }
 }
