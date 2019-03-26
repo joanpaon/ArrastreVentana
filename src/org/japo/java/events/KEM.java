@@ -23,7 +23,7 @@ import org.japo.java.forms.GUI;
  *
  * @author José A. Pacheco Ondoño - joanpaon@gmail.com
  */
-public class KEM extends KeyAdapter {
+public final class KEM extends KeyAdapter {
 
     // Referencia al GUI
     private final GUI gui;

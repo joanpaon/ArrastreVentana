@@ -15,11 +15,16 @@
  */
 package org.japo.java.libraries;
 
+import java.beans.XMLDecoder;
+import java.beans.XMLEncoder;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.util.Properties;
 
@@ -30,8 +35,10 @@ import java.util.Properties;
 public class UtilesApp {
 
     // Valores por Defecto
+    public static final String DEF_PAQUETE_PRP = "properties";
     public static final String DEF_FICHERO_PRP = "app.properties";
     public static final String DEF_FICHERO_XML = "app.xml";
+    public static final String DEF_RECURSO_PRP = "config/app.properties";
     public static final String DEF_PUERTO_BLOQUEO = "54321";
 
     // Fichero (Por defecto) > Propiedades    
@@ -58,6 +65,27 @@ public class UtilesApp {
 
         // Devolver Propiedades
         return prp;
+    }
+
+    // Recurso Propiedades > Objeto Propiedades
+    public static final Properties importarPropiedadesRecurso(String recurso) {
+        // Objeto de Propiedades Vacio
+        Properties prp = new Properties();
+
+        // Cargar Fichero de Propiedades 
+        try (InputStream is = ClassLoader.getSystemResourceAsStream(recurso)) {
+            prp.load(is);
+        } catch (Exception e) {
+            System.out.println("ERROR: Acceso al recurso de propiedades " + recurso);
+        }
+
+        // Devolver Propiedades
+        return prp;
+    }
+
+    // Recurso Propiedades ( Predefinido ) > Objeto Propiedades
+    public static final Properties importarPropiedadesRecurso() {
+        return importarPropiedadesRecurso(DEF_RECURSO_PRP);
     }
 
     // Fichero Propiedades XML > Objeto Propiedades
@@ -174,5 +202,65 @@ public class UtilesApp {
 
         // Devuelve Estado
         return instanciaOK;
+    }
+
+    // Objeto > Serialización Binaria
+    public static final void serializarBin(Object objeto, String archivo)
+            throws Exception {
+        try (
+                FileOutputStream fos = new FileOutputStream(archivo);
+                ObjectOutputStream oos = new ObjectOutputStream(fos)) {
+            // Escribe el objeto
+            oos.writeObject(objeto);
+
+            // Vacia Buffers
+            oos.flush();
+        }
+    }
+
+    // Objeto > Deserialización Binaria
+    public static final Object deserializarBin(String archivo)
+            throws Exception {
+
+        // Referencia Objeto
+        Object objeto = null;
+
+        try (
+                FileInputStream fis = new FileInputStream(archivo);
+                ObjectInputStream ois = new ObjectInputStream(fis)) {
+            objeto = ois.readObject();
+        }
+
+        return objeto;
+    }
+
+    // Objeto > Serialización XML
+    public static final void serializarXML(Object objeto, String archivo)
+            throws Exception {
+        try (
+                FileOutputStream fos = new FileOutputStream(archivo);
+                XMLEncoder salida = new XMLEncoder(fos)) {
+            // Escribe el objeto
+            salida.writeObject(objeto);
+
+            // Vacia Buffers
+            salida.flush();
+        }
+    }
+
+    // Objeto > Deserialización XML
+    public static final Object deserializarXML(String archivo)
+            throws Exception {
+
+        // Referencia Objeto
+        Object objeto = null;
+
+        try (
+                FileInputStream fis = new FileInputStream(archivo);
+                XMLDecoder entrada = new XMLDecoder(fis)) {
+            objeto = entrada.readObject();
+        }
+
+        return objeto;
     }
 }
