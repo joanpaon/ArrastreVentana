@@ -56,6 +56,10 @@ public final class GUI extends JFrame {
     // Referencias
     private final Properties prp;
 
+    // Componentes
+    private JLabel lblRotulo;
+    private JPanel pnlPpal;
+
     // Posición ventana
     private int xIni;
     private int yIni;
@@ -78,12 +82,12 @@ public final class GUI extends JFrame {
     // Construcción del IGU
     private void initComponents() {
         // Rótulo
-        JLabel lblRotulo = new JLabel("Arrástrame (ESC - Salir)");
+        lblRotulo = new JLabel("Arrástrame (ESC - Salir)");
         lblRotulo.setForeground(Color.WHITE);
         lblRotulo.setFont(new Font("Cambria", Font.PLAIN, 32));
 
         // Panel Principal
-        JPanel pnlPpal = new JPanel();
+        pnlPpal = new JPanel();
         pnlPpal.setBackground(Color.MAGENTA);
         pnlPpal.setLayout(new GridBagLayout());
         pnlPpal.add(lblRotulo);
