@@ -16,14 +16,14 @@
 package org.japo.java.events;
 
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseMotionListener;
+import java.awt.event.MouseMotionAdapter;
 import org.japo.java.forms.GUI;
 
 /**
  *
  * @author José A. Pacheco Ondoño - joanpaon@gmail.com
  */
-public final class MMEM implements MouseMotionListener {
+public final class MMEM extends MouseMotionAdapter {
 
     // Referencia al GUI
     private final GUI gui;
@@ -36,10 +36,5 @@ public final class MMEM implements MouseMotionListener {
     @Override
     public void mouseDragged(MouseEvent e) {
         gui.gestionarArrastre(e);
-    }
-
-    @Override
-    public void mouseMoved(MouseEvent e) {
-
     }
 }

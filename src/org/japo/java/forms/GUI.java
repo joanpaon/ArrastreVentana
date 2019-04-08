@@ -100,7 +100,7 @@ public final class GUI extends JFrame {
         }
         setResizable(false);
         setLocationRelativeTo(null);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         setUndecorated(true);
         addKeyListener(new KEM(this));
         addMouseListener(new MEM(this));
