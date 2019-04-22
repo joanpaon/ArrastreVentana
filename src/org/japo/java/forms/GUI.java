@@ -35,16 +35,6 @@ import org.japo.java.libraries.UtilesSwing;
  */
 public final class GUI extends JFrame {
 
-    // Propiedades App
-    public static final String PRP_FORM_HEIGHT = "form_height";
-    public static final String PRP_FORM_WIDTH = "form_width";
-    public static final String PRP_LOOK_AND_FEEL_PROFILE = "look_and_feel_profile";
-
-    // Valores por Defecto
-    public static final int DEF_FORM_HEIGHT = 300;
-    public static final int DEF_FORM_WIDTH = 500;
-    public static final String DEF_LOOK_AND_FEEL_PROFILE = UtilesSwing.LNF_WINDOWS_PROFILE;
-
     // Referencias
     private final Properties prp;
 
@@ -71,43 +61,53 @@ public final class GUI extends JFrame {
         initAfter();
     }
 
-    // Construcción del IGU
+    // Construcción - GUI
     private void initComponents() {
-        // Rótulo
+        // Etiqueta Rótulo
         lblRotulo = new JLabel("Arrástrame (ESC - Salir)");
-        lblRotulo.setForeground(Color.WHITE);
         lblRotulo.setFont(new Font("Cambria", Font.PLAIN, 32));
+        lblRotulo.setForeground(Color.WHITE);
 
         // Panel Principal
-        pnlPpal = new JPanel();
         pnlPpal.setBackground(Color.MAGENTA);
         pnlPpal.setLayout(new GridBagLayout());
         pnlPpal.add(lblRotulo);
 
-        // Ventana principal
-        setContentPane(pnlPpal);
-        try {
-            int height = Integer.parseInt(prp.getProperty(PRP_FORM_HEIGHT));
-            int width = Integer.parseInt(prp.getProperty(PRP_FORM_WIDTH));
-            setSize(width, height);
-        } catch (NumberFormatException e) {
-            setSize(DEF_FORM_WIDTH, DEF_FORM_HEIGHT);
-        }
-        setLocationRelativeTo(null);
-        setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        // Ventana Principal
+        setResizable(false);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setUndecorated(true);
     }
 
     // Inicialización Anterior    
     private void initBefore() {
         // Establecer LnF
-        UtilesSwing.establecerLnFProfile(prp.getProperty(
-                PRP_LOOK_AND_FEEL_PROFILE, DEF_LOOK_AND_FEEL_PROFILE));
+        UtilesSwing.establecerLnFProfile(prp.getProperty("look_and_feel_profile"));
+
+        // Panel Principal
+        pnlPpal = new JPanel();
+
+        // Ventana Principal
+        setContentPane(pnlPpal);
     }
 
     // Inicialización Posterior
     private void initAfter() {
-        // Registra Gestores de Eventos
+        // Establecer Favicon
+        UtilesSwing.establecerFavicon(this, prp.getProperty("img_favicon_resource"));
+
+        // Panel Principal
+        pnlPpal.setLayout(new GridBagLayout());
+        pnlPpal.add(lblRotulo);
+
+        // Ventana Principal
+        setTitle(prp.getProperty("form_title"));
+        int width = Integer.parseInt(prp.getProperty("form_width"));
+        int height = Integer.parseInt(prp.getProperty("form_height"));
+        setSize(width, height);
+        setLocationRelativeTo(null);
+
+        // Gestores de Eventos
         addKeyListener(new KEM(this));
         addMouseListener(new MEM(this));
         addMouseMotionListener(new MMEM(this));
